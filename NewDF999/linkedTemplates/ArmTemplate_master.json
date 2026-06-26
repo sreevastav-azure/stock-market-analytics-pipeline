@@ -1,0 +1,77 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "NewDF999"
+		},
+		"LS_ADLS_StockMarket_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_StockMarket'"
+		},
+		"LS_Databricks_StockMarket_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'LS_Databricks_StockMarket'"
+		},
+		"LS_ADLS_StockMarket_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://itsmystorage.dfs.core.windows.net/"
+		},
+		"LS_Databricks_StockMarket_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0625-095611-zndj5pqz"
+		},
+		"LS_HTTP_AlphaVantage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://www.alphavantage.co"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "NewDF999_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_ADLS_StockMarket_accountKey": {
+						"value": "[parameters('LS_ADLS_StockMarket_accountKey')]"
+					},
+					"LS_Databricks_StockMarket_accessToken": {
+						"value": "[parameters('LS_Databricks_StockMarket_accessToken')]"
+					},
+					"LS_ADLS_StockMarket_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_StockMarket_properties_typeProperties_url')]"
+					},
+					"LS_Databricks_StockMarket_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('LS_Databricks_StockMarket_properties_typeProperties_existingClusterId')]"
+					},
+					"LS_HTTP_AlphaVantage_properties_typeProperties_url": {
+						"value": "[parameters('LS_HTTP_AlphaVantage_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

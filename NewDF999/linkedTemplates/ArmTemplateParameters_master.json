@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "NewDF999"
+		},
+		"LS_ADLS_StockMarket_accountKey": {
+			"value": ""
+		},
+		"LS_Databricks_StockMarket_accessToken": {
+			"value": ""
+		},
+		"LS_ADLS_StockMarket_properties_typeProperties_url": {
+			"value": "https://itsmystorage.dfs.core.windows.net/"
+		},
+		"LS_Databricks_StockMarket_properties_typeProperties_existingClusterId": {
+			"value": "0625-095611-zndj5pqz"
+		},
+		"LS_HTTP_AlphaVantage_properties_typeProperties_url": {
+			"value": "https://www.alphavantage.co"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
