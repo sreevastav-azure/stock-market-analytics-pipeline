@@ -1,0 +1,111 @@
+{
+	"name": "PL_StockMarket_Ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_AlphaVantage_to_Bronze",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_HTTP_AlphaVantage",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_ADLS_Bronze_Stock",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Run_Bronze_to_Silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Copy_AlphaVantage_to_Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/sreevastav3_gmail.com#ext#@sreevastav3gmail.onmicrosoft.com/01_bronze_to_silver_stock"
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_Databricks_StockMarket",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Run_Silver_to_Gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Run_Bronze_to_Silver",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/sreevastav3_gmail.com#ext#@sreevastav3gmail.onmicrosoft.com/02_silver_to_gold_stock"
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_Databricks_StockMarket",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-06-26T06:42:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

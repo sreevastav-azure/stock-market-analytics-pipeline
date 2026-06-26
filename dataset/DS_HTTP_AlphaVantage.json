@@ -1,0 +1,22 @@
+{
+	"name": "DS_HTTP_AlphaVantage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_HTTP_AlphaVantage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "/query?function=TIME_SERIES_DAILY&symbol=AAPL&apikey=D837CMRIWWO1HVZY&datatype=json&outputsize=compact",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

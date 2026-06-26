@@ -1,0 +1,15 @@
+{
+	"name": "NewDF999",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a3fee745-f634-4e24-9b71-a42a4ca8e0c1",
+		"tenantId": "c9456263-e710-4a40-a849-9e23e08c2714"
+	}
+}

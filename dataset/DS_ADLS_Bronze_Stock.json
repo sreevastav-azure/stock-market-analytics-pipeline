@@ -1,0 +1,24 @@
+{
+	"name": "DS_ADLS_Bronze_Stock",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_StockMarket",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('stock_AAPL_', formatDateTime(utcNow(), 'yyyy-MM-dd-HH-mm'), '.json')",
+					"type": "Expression"
+				},
+				"folderPath": "stock_market",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
